@@ -1,0 +1,66 @@
+require('em')('transporter',function(em,lib,_){
+
+    var  as = em('as-contrib'),
+         whenEnv = em('whenEnv'),
+         inv = as.invokable,
+         valids = as.validators,
+         util = as.AppStack.Utility,
+         rootPath =/^\.\//,
+         localPath = /^file:\/\/$|^file:\/\/\/$/,
+         trans = this.exports = {};
+  
+          whenEnv.node(function(){
+            trans.state = new Error("Not Supported!");
+          });
+
+          whenEnv.browser(function(){
+              
+              trans.script = function(url,fn){
+                var script = document.createElement('script');
+                script.setAttribute('script-loader','transporter');
+                script.onload = script.onreadystatechange = function(){
+                  if(!script.readyState || script.readyState.match(/^loaded$|^completed$/ig)){
+                    if(fn && typeof fn === 'function')  fn.call(null,null,script);
+                    script.onreadystatechange = script.onload = null;
+                  }
+                };
+                script.onerror = function(e){
+                  if(fn && typeof fn === 'function') fn.call(null,new Error('Request Failed!'),script);
+                  script.onerror = null;
+                };
+                return script;
+              };
+          
+              trans.Ajax = function(req){
+                 var xhr = this.XHR(true);
+                 return function(method){
+                   
+                 };
+              };
+              
+              trans.AjaxPoll = function(req,method,ms){
+              
+              };
+
+              trans.ieXHR = inv.dispatch(function(){
+                  var i;
+                  if(valids.exists(i = new _.ActiveXObject('Msxml2.XMLHTTP.6.0'))) return i;
+              },function(){
+                  var i;
+                  if(valids.exists(i = new _.ActiveXObject('Msxml2.XMLHTTP.3.0'))) return i;
+              },function(){
+                  var i;
+                  if(valids.exists(i = new _.ActiveXObject('Microsoft.XMLHTTP'))) return i;
+              });
+                  
+              trans.XHR = inv.dispatch(function(){
+                  var i;
+                  if(valids.exists(i = new _.XMLHttpRequest())) return i;
+              },trans.ieXHR);
+              
+          });
+   
+            
+
+    
+},this);

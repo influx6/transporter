@@ -1,0 +1,22 @@
+{
+  "name": "transporter.js",
+  "version": "0.0.1",
+  "description": "a simple transportation script for the browser",
+  "main": "./lib/transporter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/influx6/transporter"
+  },
+  "keywords": [
+    "transporter"
+  ],
+  "author": "Alexander Adeniyin Ewetumo",
+  "license": "Mit",
+  "bugs": {
+    "url": "https://github.com/influx6/transporter/issues"
+  },
+  "homepage": "https://github.com/influx6/transporter"
+}
